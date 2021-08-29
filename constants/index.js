@@ -1,0 +1,7 @@
+
+
+exports.TODO_STATUS = {
+    PENDING : "PENDING",
+    COMPLETED : "COMPLETED",
+    CANCELED: "CANCELED"
+}

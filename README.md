@@ -1,49 +1,76 @@
 # Construyendo una app en Nodejs + Expressjs
 
-Links:
+### Añadiendo nuevas rutas
 
-[ExpressJS](https://expressjs.com/es/)
-
-[NodeJS](https://nodejs.org/es/)
-
-
-1) Instalar node desde https://nodejs.org/es/
-
-2) Inicializar el proyecto. Desde una terminal hacer:
+1) Crear estructura basica de capas
 
 ```
-$ mkdir hello-nodejs
-$ cd hello-nodejs
-$ npm init
-# follow the npm cli instrunctions
+mkdir controllers
+mkdir services
+mkdir constants
 ```
 
-3) Instalar express
-```
-$ npm install express --save
+2) Creamos el servicio que retorna todo´s, temporalmente mockeado
+```js
+//services/todos-service.js
+const TODO_STATUS = require("../constants");
+
+exports.getTodos = function(){
+    return [
+        {
+            name: "Some pending todo",
+            status: TODO_STATUS.PENDING
+        },
+        {
+            name: "Some completed todo",
+            status: TODO_STATUS.COMPLETED
+        }
+    ]
+}
 ```
 
-4) Crear index
+3) Creamos unas constantes de utilidad
 
+```js
+//constants/index.js
+exports.TODO_STATUS = {
+    PENDING : "PENDING",
+    COMPLETED : "COMPLETED",
+    CANCELED: "CANCELED"
+}
+```
+
+4) Agregamos la llamada al servicio desde el controlador
+```js
+//controllers/todos-controller.js
+const express = require("express");
+const todoService = require("../services/todos-service");
+
+const router = new express.Router();
+
+router.get("/todos", (req, res, next) => {
+    const todos =  todoService.getTodos();
+    res.json(todos);
+});
+
+module.exports = router;
+```
+
+5) Importamos el nuevo router creado a la app express
 ```js
 //app.js
 const express = require('express');
+const todoRouter = require("./controllers/todos-controller");
+
 const app = express();
 const port = 3000;
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-});
+app.use(todoRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 });
 ```
 
-5) Comenzar aplicación
-```
-node app.js
-```
-
-### next:
-feature/add-new-routes
+### next
+feature/add-some-database
