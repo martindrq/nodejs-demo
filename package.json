@@ -1,0 +1,22 @@
+{
+  "name": "nodejs-demo",
+  "version": "1.0.0",
+  "description": "Demo nodejs+express tópicos avanzados",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martindrq/nodejs-demo.git"
+  },
+  "author": "Martin Da Rosa <martin@dlocal.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/martindrq/nodejs-demo/issues"
+  },
+  "homepage": "https://github.com/martindrq/nodejs-demo#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
