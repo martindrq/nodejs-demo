@@ -65,6 +65,7 @@ const todoRouter = require("./controllers/todos-controller");
 const app = express();
 const port = 3000;
 
+app.use(express.json());
 app.use(todoRouter);
 
 app.listen(port, () => {
