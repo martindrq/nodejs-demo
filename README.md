@@ -41,4 +41,3 @@ npm run prettier
 npx husky-init
 npx husky add .husky/pre-commit "npm run lint && npm run prettier"
 ```
-
