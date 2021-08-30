@@ -1,0 +1,10 @@
+curl --location --request GET 'http://localhost:3000/todos' 
+
+curl --location --request POST 'http://localhost:3000/todos' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+	"name": "Fist todo 3",
+	"status": "PENDING"
+}'
+
+curl --location --request PUT 'http://localhost:3000/todos/612c2c29c47f1fd2922ef9d1/complete'

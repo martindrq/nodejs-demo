@@ -1,4 +1,6 @@
+require('dotenv').config()
 const express = require('express');
+
 const todoRouter = require("./controllers/todos-controller");
 
 const app = express();

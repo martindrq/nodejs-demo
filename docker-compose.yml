@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  mongodb:
+    image : mongo
+    container_name: mongodb_demotopicos
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=s1mpl3
+    volumes:
+      - mongo-db:/data/db
+    ports:
+      - 27017:27017
+volumes:
+  mongo-db: {}

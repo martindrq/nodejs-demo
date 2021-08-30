@@ -1,14 +1,18 @@
-const TODO_STATUS = require("../constants");
+const TodoModel = require("../models/todo-model");
+const { TODO_STATUS } = require("../constants");
 
-exports.getTodos = function(){
-    return [
-        {
-            name: "Some pending todo",
-            status: TODO_STATUS.PENDING
-        },
-        {
-            name: "Some completed todo",
-            status: TODO_STATUS.COMPLETED
-        }
-    ]
+exports.getTodos = async function(){
+    const todos = await TodoModel.find();
+    return todos;
+}
+
+exports.addTodo = async function(todo){
+    const newTodo = new TodoModel({...todo, created: new Date()});
+    const saveResult = await newTodo.save();
+    return saveResult;
+}
+
+exports.completeTodo = async function(todoId){
+    const updateResult =  await TodoModel.findOneAndUpdate({_id: todoId }, { status: TODO_STATUS.COMPLETED}, { returnOriginal: false });
+    return updateResult;
 }
