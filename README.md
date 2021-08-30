@@ -1,78 +1,44 @@
 # Construyendo una app en Nodejs + Expressjs
 
-### Añadiendo una base de datos
+### Agregando chequeo de sintaxis y auto formateo
 
-1) Agremos librería de odm de mongodb y otra librería para manejar variable de entorno
+1. Agregar librerías
 
 ```
-npm install mongoose
-npm install dotenv
-mkdir models
-mkdir componets
-mkdir componets/odm
+npm install prettier eslint husky --save-dev
 ```
 
-2) Agregamos la conexión con mongodb
-```js
-//components/odm/index.js
-const mongoose = require('mongoose');
-const username = process.env.MONGO_USER;
-const password = process.env.MONGO_PASS;
-const host = process.env.MONGO_HOST;
+2. Inicializar eslint
 
-mongoose.connect(`mongodb://${username}:${password}@${host}:27017`);
-module.exports = mongoose;
+```
+npx eslint --init
 ```
 
-3) Agregmos el modelo que especifica el "todo"
+3. Agregamos en el package json, las tareas de lint y formateo
 
-```js
-//models/todo-model.js
-const mongoose = require("../components/odm");
-const TODO_STATUS = require("../constants");
-
-const Todo = mongoose.model("Todo", {
-  name: String,
-  status: {
-    type: String,
-    enum: Object.values(TODO_STATUS),
+```json
+  "scripts": {
+    "lint": "eslint --ext .js .",
+    "prettier": "prettier --write ."
   },
-  created: {
-    type: Date,
-    default: Date.now,
-  }
-});
-
-module.exports = Todo;
-
 ```
 
-4) Ajustamos el todo-service para que utilice el modelo
-```js
-//services/todo-service.js
-const TodoModel = require("../models/todo-model");
+4. Probamos en correr el linter ( y arreglamos en caso de encontrar errores! )
 
-exports.getTodos = async function(){
-    const todos = await TodoModel.find();
-    return todos;
-}
+```
+npm run lint
 ```
 
-5) Ajustamos el controller para llame las funciones de manera asincrónica
-```js
-//controllers/todo-controller.js
-const express = require("express");
-const todoService = require("../services/todos-service");
+5. Probamos en correr el formatter ( va a formatar todo el proyecto )
 
-const router = new express.Router();
-
-router.get("/todos", async (req, res, next) => {
-    const todos =  await todoService.getTodos();
-    res.json(todos);
-});
-
-module.exports = router;
+```
+npm run prettier
 ```
 
-### next
-feature/add-some-database
+6. Agregamos ambas tareas antes de cada commit de git
+
+```
+npx husky-init
+npx husky add .husky/pre-commit "npm run lint && npm run prettier"
+```
+

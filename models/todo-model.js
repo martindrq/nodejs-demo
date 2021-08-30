@@ -10,7 +10,7 @@ const Todo = mongoose.model("Todo", {
   created: {
     type: Date,
     default: Date.now,
-  }
+  },
 });
 
 module.exports = Todo;

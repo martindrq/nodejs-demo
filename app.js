@@ -1,5 +1,5 @@
-require('dotenv').config()
-const express = require('express');
+require("dotenv").config();
+const express = require("express");
 
 const todoRouter = require("./controllers/todos-controller");
 
@@ -10,5 +10,5 @@ app.use(express.json());
 app.use(todoRouter);
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Example app listening at http://localhost:${port}`);
 });
