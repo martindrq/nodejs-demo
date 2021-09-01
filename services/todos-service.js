@@ -16,3 +16,8 @@ exports.completeTodo = async function(todoId){
     const updateResult =  await TodoModel.findOneAndUpdate({_id: todoId }, { status: TODO_STATUS.COMPLETED}, { returnOriginal: false });
     return updateResult;
 }
+
+exports.cancelTodo = async function(todoId){
+    const updateResult =  await TodoModel.findOneAndUpdate({_id: todoId }, { status: TODO_STATUS.CANCELED}, { returnOriginal: false });
+    return updateResult;
+}

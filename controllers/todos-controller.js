@@ -30,4 +30,13 @@ router.put("/todos/:id/complete", async (req, res, next) => {
     }
 });
 
+router.put("/todos/:id/cancel", async (req, res, next) => {
+    try{
+        const cancelResult =  await todoService.cancelTodo(req.params.id);
+        res.json(cancelResult);
+    }catch(e){
+        res.send(e.message);
+    }
+});
+
 module.exports = router;
